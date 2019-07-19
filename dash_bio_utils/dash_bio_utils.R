@@ -33,13 +33,3 @@ importSOFT <- function(filepath) {
 }
 
 
-# app <- Dash$new()
-# 
-# app$layout(htmlDiv(list(
-#   dccGraph(figure = heatmaply(n[1:10,])
-#   )
-# )))
-# 
-# 
-# app$run_server(showcase = TRUE)
-
