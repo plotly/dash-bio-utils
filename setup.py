@@ -34,7 +34,8 @@ setup(
         'pandas',
         'parmed',
         'periodictable',
-        'requests'
+        'requests',
+        'glob'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -1,16 +1,17 @@
 """NGL Parser
 
-This module contains functions that parse and structure data into a 
-dict for use with the NGL Molecule Viewer component. 
+This module contains functions that parse and structure data into a
+dict for use with the NGL Molecule Viewer component.
 
-One or multiple input data files in the PDB or .cif.gz format can be 
-entered to return a dict to input as the `data` param of the component. 
+One or multiple input data files in the PDB or .cif.gz format can be
+entered to return a dict to input as the `data` param of the component.
 """
 
 import glob
+import six.moves.urllib.request as urlreq
+import gzip
 
-
-# Helper function to load highlights from content string
+# Helper function to set highlights
 def get_highlights(string, sep, atom_indicator):
     residues_list = []
     atoms_list = []
@@ -26,7 +27,7 @@ def get_highlights(string, sep, atom_indicator):
 
 
 # Helper function to load the data
-def get_data(data_file, pdb_id, color, resetView=False):
+def get_data(data_path, pdb_id, color, reset_view=False, local=True):
     chain = "ALL"
     aa_range = "ALL"
     highlight_dic = {"atoms": "", "residues": ""}
@@ -53,26 +54,31 @@ def get_data(data_file, pdb_id, color, resetView=False):
                     chain, highlights_sep, atom_indicator
                 )
 
-    fname = [f for f in glob.glob(data_path + pdb_id + ".*")][0]
+    if local:
+        fname = [f for f in glob.glob(data_path + pdb_id + ".*")][0]
 
-    if "gz" in fname:
-        ext = fname.split(".")[-2]
-        with gzip.open(fname, "r") as f:
-            content = f.read().decode("UTF-8")
+        if "gz" in fname:
+            ext = fname.split(".")[-2]
+            with gzip.open(fname, "r") as f:
+                content = f.read().decode("UTF-8")
+        else:
+            ext = fname.split(".")[-1]
+            with open(fname, "r") as f:
+                content = f.read()
     else:
+        fname =  pdb_id + '.pdb'
         ext = fname.split(".")[-1]
-        with open(fname, "r") as f:
-            content = f.read()
+        content= urlreq.urlopen(data_path + fname).read().decode("utf-8")
 
     return {
         "filename": fname.split("/")[-1],
         "ext": ext,
-        "selectedValue": data_file,
+        "selectedValue": pdb_id,
         "chain": chain,
         "aaRange": aa_range,
         "chosen": highlight_dic,
         "color": color,
         "config": {"type": "text/plain", "input": content},
-        "resetView": resetView,
+        "resetView": reset_view,
         "uploaded": False,
     }
