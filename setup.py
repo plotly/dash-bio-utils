@@ -25,7 +25,6 @@ setup(
         'parmed',
         'periodictable',
         'requests',
-        'glob'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
