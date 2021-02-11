@@ -4,15 +4,6 @@ from setuptools import setup
 
 long_description = io.open('README.md', encoding='utf-8').read()
 
-package = {
-    'name': os.path.basename(filepath).replace('-', '_'),
-    'version': '0.0.6',
-    'author': 'The Plotly Team',
-    'author_email': 'dashbio@plot.ly',
-    'description': 'Simple parsing tools that supplement dash-bio.'
-}
-
-
 setup(
     name='dash_bio_utils',
     version='0.0.6',
