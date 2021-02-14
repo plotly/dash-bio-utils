@@ -66,7 +66,7 @@ def get_data(data_path, pdb_id, color, reset_view=False, local=True):
             with open(fname, "r") as f:
                 content = f.read()
     else:
-        fname =  pdb_id + '.pdb'
+        fname =  pdb_id.split(".")[0] + '.pdb'
         ext = fname.split(".")[-1]
         content= urlreq.urlopen(data_path + fname).read().decode("utf-8")
 
