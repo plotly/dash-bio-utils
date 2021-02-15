@@ -25,6 +25,13 @@ def get_highlights(string, sep, atom_indicator):
 
     return (str_, {"atoms": ",".join(atoms_list), "residues": ",".join(residues_list)})
 
+# Helper function to split the aa_range and pdb_id
+def single_split(string, sep):
+    parts = string.split(sep)
+    if len(parts) > 2:
+        raise ValueError('expected "{}" once, found {} in "{}"'.format(sep, string.count(sep),
+                                                                       string))
+    return parts
 
 # Helper function to load the data
 def get_data(data_path, pdb_id, color, reset_view=False, local=True):
@@ -34,13 +41,13 @@ def get_data(data_path, pdb_id, color, reset_view=False, local=True):
 
     # Check if only one chain should be shown
     if "." in pdb_id:
-        pdb_id, chain = pdb_id.split(".")
+        pdb_id, chain = single_split(pdb_id, ".")
 
         highlights_sep = "@"
         atom_indicator = "a"
         # Check if only a specified amino acids range should be shown:
         if ":" in chain:
-            chain, aa_range = chain.split(":")
+            chain, aa_range = single_split(chain, ":")
 
             # Check if atoms should be highlighted
             if highlights_sep in aa_range:
@@ -66,7 +73,7 @@ def get_data(data_path, pdb_id, color, reset_view=False, local=True):
             with open(fname, "r") as f:
                 content = f.read()
     else:
-        fname =  pdb_id.split(".")[0] + '.pdb'
+        fname =  single_split(pdb_id, ".")[0] + '.pdb'
         ext = fname.split(".")[-1]
         content= urlreq.urlopen(data_path + fname).read().decode("utf-8")
 
