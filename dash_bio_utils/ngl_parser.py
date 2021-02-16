@@ -11,12 +11,20 @@ import glob
 import six.moves.urllib.request as urlreq
 import gzip
 
+# Helper function to split the aa_range and pdb_id
+def single_split(string, sep):
+    parts = string.split(sep)
+    if len(parts) > 2:
+        raise ValueError('expected "{}" once, found {} in "{}"'.format(sep, string.count(sep),
+                                                                       string))
+    return parts
+
 # Helper function to set highlights
 def get_highlights(string, sep, atom_indicator):
     residues_list = []
     atoms_list = []
 
-    str_, _str = string.split(sep)
+    str_, _str = single_split(string, sep)
     for e in _str.split(","):
         if atom_indicator in e:
             atoms_list.append(e.replace(atom_indicator, ""))
@@ -25,13 +33,6 @@ def get_highlights(string, sep, atom_indicator):
 
     return (str_, {"atoms": ",".join(atoms_list), "residues": ",".join(residues_list)})
 
-# Helper function to split the aa_range and pdb_id
-def single_split(string, sep):
-    parts = string.split(sep)
-    if len(parts) > 2:
-        raise ValueError('expected "{}" once, found {} in "{}"'.format(sep, string.count(sep),
-                                                                       string))
-    return parts
 
 # Helper function to load the data
 def get_data(data_path, pdb_id, color, reset_view=False, local=True):
