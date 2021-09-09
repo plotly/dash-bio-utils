@@ -7,7 +7,7 @@ import re
 import six.moves.urllib.request as urlreq
 from  six.moves.urllib.parse import urlparse as urlparse
 from six.moves.urllib.error import URLError
-from constants import ATOM_COLOR_DICT, CHAIN_COLOR_DICT, RESIDUE_COLOR_DICT, RESIDUE_TYPES, RESIDUE_TYPE_COLOR_DICT
+from .constants import ATOM_COLOR_DICT, CHAIN_COLOR_DICT, RESIDUE_COLOR_DICT, RESIDUE_TYPES, RESIDUE_TYPE_COLOR_DICT
 
 import parmed as pmd
 
