@@ -113,7 +113,7 @@ def fill_in_defaults(input_dict, default_dict):
 
 
 def create_style(
-        pdb_path,
+        path,
         style,
         mol_color,
         residue_type_colors=None,
@@ -124,8 +124,8 @@ def create_style(
     """Function to create the different styles (stick, cartoon, sphere)
     using the protein data bank (PDB) file as input. This function outputs
     the styles as a JSON file
-    @param pdb_path
-    Name of the biomolecular structure file in PDB format
+    @param path
+    Name of the biomolecular structure file in PDB of mmCIF format
     @param style
     Type of representation of the biomolecule (options: stick, cartoon, sphere)
     @param mol_color
@@ -139,7 +139,7 @@ def create_style(
     """
 
     # Read input file
-    with open(pdb_path, 'r') as infile:
+    with open(path, 'r') as infile:
         # store only non-empty lines
         lines = [l.strip() for l in infile if l.strip()]
 
@@ -160,14 +160,6 @@ def create_style(
 
     data = {}
 
-    # Variables that store the character positions of different
-    # parameters from the molecule PDB file
-    pos = {
-        'chain': [21, 22],
-        'atm_type': [77, 78],
-        'res_name': [17, 20]
-    }
-
     for l in lines:
         line = l.split()
 
@@ -175,15 +167,9 @@ def create_style(
         if "ATOM" not in line[0] and "HETATM" not in line[0]:
             continue
 
-        chain = l[
-            pos['chain'][0]:pos['chain'][1]
-        ]
-        atm_type = l[
-            pos['atm_type'][0]:pos['atm_type'][1]
-        ]
-        res_name = l[
-            pos['res_name'][0]:pos['res_name'][1]
-        ].strip()
+        path_extension = path.split('.')[-1]
+
+        chain, atm_type, res_name = _get_data_from_line(l, path_extension)
 
         chains.append(chain)
         atm_types.append(atm_type)
@@ -234,3 +220,48 @@ def create_style(
                 }
 
     return json.dumps(data)
+
+
+def _get_data_from_line(line, file_extension):
+    if file_extension == 'pdb':
+        data = _get_data_from_pdb_line(line)
+    elif file_extension == 'cif':
+        data = _get_data_from_cif_line(line)
+    else:
+        data = ['', '', '']
+
+    return data
+
+
+def _get_data_from_pdb_line(line):
+    # Variables that store the character positions of different
+    # parameters from the molecule PDB file
+    pos = {
+        'chain': [21, 22],
+        'atm_type': [77, 78],
+        'res_name': [17, 20]
+    }
+
+    chain = line[pos['chain'][0]:pos['chain'][1]]
+    atm_type = line[pos['atm_type'][0]:pos['atm_type'][1]]
+    res_name = line[pos['res_name'][0]:pos['res_name'][1]].strip()
+
+    return chain, atm_type, res_name
+
+
+def _get_data_from_cif_line(line):
+    # Variables that store the character positions of different
+    # parameters from the molecule mmCIF file
+    pos = {
+        'chain': 6,
+        'atm_type': 2,
+        'res_name': 5
+    }
+
+    split_line = line.split()
+
+    chain = split_line[pos['chain']]
+    atm_type = split_line[pos['atm_type']]
+    res_name = split_line[pos['res_name']].strip()
+
+    return chain, atm_type, res_name
