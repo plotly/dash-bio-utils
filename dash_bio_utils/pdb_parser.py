@@ -158,6 +158,8 @@ def create_data(pdb_path, style="cartoon", mol_color="residue", **kwargs):
     in JSON format
     """
 
+    output_dict = {}
+
     # Use parmed to read the bond information pdb file
     top = pmd.load_file(pdb_path)
 
@@ -258,4 +260,6 @@ def create_data(pdb_path, style="cartoon", mol_color="residue", **kwargs):
 
     styles_data = create_style(lines, style=style, mol_color=mol_color, **kwargs)
 
-    return {"styles": styles_data, "modelData": modelData}
+    output_dict['mol3d'] = {"styles": styles_data, "modelData": modelData}
+
+    return output_dict
