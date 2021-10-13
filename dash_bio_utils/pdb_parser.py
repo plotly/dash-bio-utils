@@ -1,6 +1,6 @@
 """PDB parser
 
-This module contains class that can read PDB files and return a dictionary of structural data"""
+This module contains a class that can read PDB files and return a dictionary of structural data"""
 
 import re
 
@@ -10,7 +10,7 @@ import parmed as pmd
 class PdbParser:
     """
     Parse the protein data bank (PDB) file to generate
-    input data for Molecule3dViewer, Molecule2dViewer and Spec components.
+    input data for Molecule3dViewer, Molecule2dViewer and Speck components.
 
     @param pdb_path
     Path to PDB file (either HTTP or local path).
@@ -83,9 +83,9 @@ class PdbParser:
 
         return data
 
-    def spec_data(self) -> list:
+    def speck_data(self) -> list:
         """
-        Generate input data for Spec component.
+        Generate input data for Speck component.
         """
         data = []
         for a in self.atoms:
