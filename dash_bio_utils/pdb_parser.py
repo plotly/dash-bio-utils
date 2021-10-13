@@ -29,6 +29,10 @@ class PdbParser:
         self.bonds = self.structure.bonds
 
     def mol3d_data(self) -> dict:
+        """
+        Generate input data for Molecule3dViewer component.
+        """
+
         data = {'atoms': [], 'bonds': []}
 
         for a in self.atoms:
@@ -55,6 +59,10 @@ class PdbParser:
         return data
 
     def mol2d_data(self) -> dict:
+        """
+        Generate input data for Molecule2dViewer component.
+        """
+
         data = {'nodes': [], 'links': []}
 
         for a in self.atoms:
@@ -69,13 +77,16 @@ class PdbParser:
                 "source": b.atom1.idx,
                 "target": b.atom2.idx,
                 "bond": b.order,
-                "distance": b.measure(),  # TODO verify
-                "strength": b.energy()  # TODO verify
+                "distance": b.measure(),
+                "strength": b.energy() # TODO verify
             })
 
         return data
 
     def spec_data(self) -> list:
+        """
+        Generate input data for Spec component.
+        """
         data = []
         for a in self.atoms:
             data.append({
