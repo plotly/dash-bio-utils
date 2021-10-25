@@ -43,7 +43,6 @@ class PdbParser:
                 "positions": [a.xx, a.xy, a.xz],
                 "mass_magnitude": a.mass,
                 "residue_index": a.residue.idx,
-                # "residue_name": a.residue.name + str(a.residue.idx),
                 "residue_name": a.residue.name,
                 "chain": a.residue.chain,
 
