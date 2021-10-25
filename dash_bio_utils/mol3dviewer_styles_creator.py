@@ -1,6 +1,6 @@
 from typing import Literal, TypedDict
 
-def create_style(
+def create_mol3d_style(
     atoms: list[dict],
     visualization_type: Literal['stick', 'cartoon', 'sphere'] = 'stick',
     color_element: Literal['atom', 'residue', 'residue_type', 'chain'] = 'atom',
