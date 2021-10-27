@@ -6,7 +6,7 @@ long_description = io.open('README.md', encoding='utf-8').read()
 
 setup(
     name='dash_bio_utils',
-    version='0.0.7',
+    version='0.0.8',
     url='http://github.com/plotly/dash-bio-utils',
     author='The Plotly Team',
     author_email='dashbio@plot.ly',
@@ -25,6 +25,7 @@ setup(
         'parmed',
         'periodictable',
         'requests',
+        'typing_extensions'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
