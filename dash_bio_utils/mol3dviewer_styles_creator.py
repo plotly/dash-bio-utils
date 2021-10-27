@@ -1,9 +1,3 @@
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal
-
-
 ATOM_COLORS = {
     "C": "#c8c8c8",
     "H": "#ffffff",
@@ -94,10 +88,7 @@ AMINO_ACID_CLASSES = {
 
 
 def create_mol3d_style(
-    atoms: list[dict],
-    visualization_type: Literal['stick', 'cartoon', 'sphere'] = 'stick',
-    color_element: Literal['atom', 'residue', 'residue_type', 'chain'] = 'atom',
-    color_scheme: dict[str, str] = None
+    atoms, visualization_type="stick", color_element="atom", color_scheme=None
 ):
     """Function to create styles input for Molecule3dViewer
 
