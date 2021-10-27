@@ -24,8 +24,7 @@ setup(
         'pandas',
         'parmed',
         'periodictable',
-        'requests',
-        'typing_extensions'
+        'requests'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
