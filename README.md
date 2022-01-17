@@ -1,3 +1,9 @@
+Notice
+
+As of Dash Bio 1.0, the development of dash-bio-utils has been moved to the main [Dash Bio](https://github.com/plotly/dash-bio) repo.
+
+This package exists for backward compatibility.
+
 # Dash Bio Utils
 
 Dash Bio utils is a set of helper scripts that work together with the
