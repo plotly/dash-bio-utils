@@ -1,5 +1,4 @@
 from dash_bio.utils import *  # noqa: F401, F403, E402
-from dash_bio.utils import __version__  # noqa: F401, F403, E402
 import warnings
 
 warnings.warn(
