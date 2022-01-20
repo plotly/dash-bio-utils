@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.0] - 2022-01-20
+
+As of Dash Bio 1.0.0, the development of dash-bio-utils has been moved to the main Dash Bio repo.
+
+This package exists for backward compatibility.
+
 ## [0.0.8] - 2021-09-27
 
 ### Changed
